@@ -1,0 +1,8 @@
+{
+  "siteName": "مكتبة الدعوة السلفية الرقمية الشاملة",
+  "slogan": "قل هذه سبيلي أدعو إلى الله على بصيرة أنا ومن اتبعني",
+  "subSlogan": "كتاب وسنة بفهم سلف الأمة",
+  "headerImage": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f",
+  "footerText": "© 2025 — مكتبة الدعوة السلفية",
+  "featuredBooks": ["book-1", "book-3", "book-5"] 
+}

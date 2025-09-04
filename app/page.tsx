@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import sections from "@/data/sections.json";
 import authorsData from "@/data/authors.json";
 import booksData from "@/data/books.json";
+import settings from "@/data/settings.json"; // ✅ استدعاء الإعدادات
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -38,19 +39,27 @@ export default function Home() {
       <header
         className="relative bg-cover bg-center text-center text-white"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')",
+          backgroundImage: `url('${settings.headerImage}')`,
         }}
       >
-        <div className="bg-black/50 py-16 px-4">
+        <div className="bg-black/50 py-16 px-4 relative">
+          {/* ✅ اللوجو في الهيدر */}
+          {settings.logoImage && (
+            <div className="absolute top-4 left-4">
+              <img
+                src={settings.logoImage}
+                alt="شعار المكتبة"
+                className="h-12 w-auto rounded-md shadow-md"
+              />
+            </div>
+          )}
+
           <h1 className="text-4xl md:text-5xl font-extrabold mb-3">
-            مكتبة الدعوة السلفية الرقمية الشاملة
+            {settings.siteName}
           </h1>
-          <p className="text-lg md:text-xl mb-2">
-            {`قل هذه سبيلي أدعو إلى الله على بصيرة أنا ومن اتبعني`}
-          </p>
+          <p className="text-lg md:text-xl mb-2">{settings.slogan}</p>
           <p className="text-sm md:text-base text-gray-200">
-            كتاب وسنة بفهم سلف الأمة
+            {settings.subtitle}
           </p>
           <div className="mt-4">
             <Button onClick={() => (window.location.href = "/admin")}>
@@ -145,7 +154,12 @@ export default function Home() {
               <CardTitle className="text-base">جديد الكتب</CardTitle>
             </CardHeader>
             <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredBooks.map((b: any) => (
+              {(settings.featuredBooks && settings.featuredBooks.length > 0
+                ? filteredBooks.filter((b: any) =>
+                    settings.featuredBooks.includes(b.id)
+                  )
+                : filteredBooks.slice(0, 5)
+              ).map((b: any) => (
                 <div key={b.id} className="border rounded-xl p-3">
                   <div className="font-bold">{b.title}</div>
                   <div className="text-sm text-gray-600">{b.author}</div>
@@ -162,9 +176,7 @@ export default function Home() {
                   <Button
                     size="sm"
                     className="mt-2"
-                    onClick={() =>
-                      alert("قارئ الكتب التجريبي — سيتم ربطه لاحقًا")
-                    }
+                    onClick={() => (window.location.href = `/reader/${b.id}`)}
                   >
                     قراءة
                   </Button>
@@ -178,7 +190,7 @@ export default function Home() {
       {/* ===== الفوتر ===== */}
       <footer className="mt-10 border-t bg-white">
         <div className="max-w-7xl mx-auto px-4 py-6 text-sm text-gray-600 flex flex-col sm:flex-row gap-2 items-center justify-between">
-          <div>© {new Date().getFullYear()} — مكتبة الدعوة السلفية</div>
+          <div>{settings.footerText}</div>
           <div className="flex items-center gap-3">
             <a className="hover:underline" href="#">
               سياسة الخصوصية
@@ -191,6 +203,17 @@ export default function Home() {
             </a>
           </div>
         </div>
+
+        {/* ✅ صورة الفوتر */}
+        {settings.footerImage && (
+          <div className="w-full mt-4">
+            <img
+              src={settings.footerImage}
+              alt="صورة الفوتر"
+              className="w-full max-h-40 object-cover"
+            />
+          </div>
+        )}
       </footer>
     </div>
   );
