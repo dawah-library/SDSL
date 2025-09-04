@@ -44,7 +44,7 @@ export default function SectionsTab() {
             className="flex justify-between items-center border rounded px-3 py-2"
           >
             <span>{sec}</span>
-            <Button variant="destructive" size="sm" onClick={() => removeSection(i)}>
+           <Button variant="outline" size="sm" onClick={() => removeSection(i)}>
               🗑️ حذف
             </Button>
           </li>
