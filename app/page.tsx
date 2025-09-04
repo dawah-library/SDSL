@@ -13,7 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import sections from "@/data/sections.json";
 import authorsData from "@/data/authors.json";
 import booksData from "@/data/books.json";
-import settings from "@/data/settings.json"; // ✅ استدعاء الإعدادات
+import settings from "@/data/settings.json";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -35,36 +35,34 @@ export default function Home() {
 
   return (
     <div dir="rtl">
-      {/* ===== هيدر مع صورة الخلفية ===== */}
+      {/* ===== الهيدر ===== */}
       <header
-        className="relative bg-cover bg-center text-center text-white"
+        className="relative bg-cover bg-center text-white"
         style={{
           backgroundImage: `url('${settings.headerImage}')`,
         }}
       >
-        <div className="bg-black/50 py-16 px-4 relative">
-          {/* ✅ اللوجو في الهيدر */}
-          {settings.logoImage && (
-            <div className="absolute top-4 left-4">
-              <img
-                src={settings.logoImage}
-                alt="شعار المكتبة"
-                className="h-12 w-auto rounded-md shadow-md"
-              />
-            </div>
-          )}
+        <div className="bg-black/50 py-16 px-6 relative">
+          {/* كل النصوص ملتصقة باليمين */}
+          <div className="max-w-2xl ml-auto text-right">
+            <h1 className="text-2xl md:text-3xl font-extrabold mb-3">
+              {settings.siteName}
+            </h1>
 
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-3">
-            {settings.siteName}
-          </h1>
-          <p className="text-lg md:text-xl mb-2">{settings.slogan}</p>
-          <p className="text-sm md:text-base text-gray-200">
-            {settings.subtitle}
-          </p>
-          <div className="mt-4">
-            <Button onClick={() => (window.location.href = "/admin")}>
-              لوحة الإدارة
-            </Button>
+            <p className="text-lg md:text-xl mb-2 font-semibold leading-relaxed">
+              ﴿ قُلْ هَذِهِ سَبِيلِي أَدْعُو إِلَى اللَّهِ عَلَى بَصِيرَةٍ أَنَا وَمَنِ اتَّبَعَنِي ﴾{" "}
+              <span className="text-sm text-gray-200">(يوسف: 108)</span>
+            </p>
+
+            <p className="text-sm md:text-base text-gray-200 mb-4">
+              {settings.slogan}
+            </p>
+
+            <div className="mt-2">
+              <Button onClick={() => (window.location.href = "/admin")}>
+                لوحة الإدارة
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -91,7 +89,6 @@ export default function Home() {
             </CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {sections.map((sec: string) => {
-                // اختيار أيقونة مناسبة لكل قسم
                 let Icon = BookOpen;
                 if (sec.includes("التزكية")) Icon = Heart;
                 if (sec.includes("الفتاوى")) Icon = FileText;
@@ -204,7 +201,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ✅ صورة الفوتر */}
         {settings.footerImage && (
           <div className="w-full mt-4">
             <img
