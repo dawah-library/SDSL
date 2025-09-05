@@ -1,11 +1,4 @@
 "use client";
-import {
-  BookOpen,
-  FileText,
-  Heart,
-  PenTool
-} from "lucide-react";
-
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,30 +28,23 @@ export default function Home() {
 
   return (
     <div dir="rtl">
-      {/* ===== الهيدر ===== */}
+      {/* ===== الهيدر مع صورة الخلفية ===== */}
       <header
         className="relative bg-cover bg-center text-white"
         style={{
           backgroundImage: `url('${settings.headerImage}')`,
         }}
       >
-        <div className="bg-black/50 py-16 px-6 relative">
-          {/* كل النصوص ملتصقة باليمين */}
-          <div className="max-w-2xl ml-auto text-right">
-            <h1 className="text-2xl md:text-3xl font-extrabold mb-3">
+        <div className="bg-black/50 py-16 px-6">
+          <div className="max-w-7xl mx-auto text-right">
+            <h1 className="text-3xl md:text-4xl font-extrabold mb-3">
               {settings.siteName}
             </h1>
-
-            <p className="text-lg md:text-xl mb-2 font-semibold leading-relaxed">
-              ﴿ قُلْ هَذِهِ سَبِيلِي أَدْعُو إِلَى اللَّهِ عَلَى بَصِيرَةٍ أَنَا وَمَنِ اتَّبَعَنِي ﴾{" "}
-              <span className="text-sm text-gray-200">(يوسف: 108)</span>
+            <p className="text-lg md:text-xl mb-2 font-bold">
+              ﴿قُلْ هَذِهِ سَبِيلِي أَدْعُو إِلَى اللَّهِ عَلَى بَصِيرَةٍ أَنَا وَمَنِ اتَّبَعَنِي﴾ (يوسف: 108)
             </p>
-
-            <p className="text-sm md:text-base text-gray-200 mb-4">
-              {settings.slogan}
-            </p>
-
-            <div className="mt-2">
+            <p className="text-sm md:text-base">{settings.subtitle}</p>
+            <div className="mt-4">
               <Button onClick={() => (window.location.href = "/admin")}>
                 لوحة الإدارة
               </Button>
@@ -88,23 +74,15 @@ export default function Home() {
               <CardTitle className="text-base">أقسام المكتبة</CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {sections.map((sec: string) => {
-                let Icon = BookOpen;
-                if (sec.includes("التزكية")) Icon = Heart;
-                if (sec.includes("الفتاوى")) Icon = FileText;
-                if (sec.includes("الآداب")) Icon = PenTool;
-
-                return (
-                  <button
-                    key={sec}
-                    className="flex items-center gap-2 text-sm border rounded-xl px-3 py-2 hover:bg-gray-50"
-                    onClick={() => setActiveTopic(sec)}
-                  >
-                    <Icon className="w-4 h-4 text-indigo-600" />
-                    {sec}
-                  </button>
-                );
-              })}
+              {sections.map((sec: string) => (
+                <button
+                  key={sec}
+                  className="flex items-center gap-2 text-sm border rounded-xl px-3 py-2 hover:bg-gray-50"
+                  onClick={() => setActiveTopic(sec)}
+                >
+                  {sec}
+                </button>
+              ))}
               {(activeTopic || activeAuthor) && (
                 <Button
                   variant="outline"
@@ -135,9 +113,6 @@ export default function Home() {
                   >
                     {a.name}
                   </Button>
-                  <div className="text-xs text-gray-500">
-                    {a.topics.join(" • ")}
-                  </div>
                 </div>
               ))}
             </CardContent>
@@ -151,25 +126,10 @@ export default function Home() {
               <CardTitle className="text-base">جديد الكتب</CardTitle>
             </CardHeader>
             <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {(settings.featuredBooks && settings.featuredBooks.length > 0
-                ? filteredBooks.filter((b: any) =>
-                    settings.featuredBooks.includes(b.id)
-                  )
-                : filteredBooks.slice(0, 5)
-              ).map((b: any) => (
+              {filteredBooks.slice(0, 5).map((b: any) => (
                 <div key={b.id} className="border rounded-xl p-3">
                   <div className="font-bold">{b.title}</div>
                   <div className="text-sm text-gray-600">{b.author}</div>
-                  <div className="flex flex-wrap gap-1 mt-1">
-                    {b.topics.map((t: string) => (
-                      <span
-                        key={t}
-                        className="text-xs border rounded px-2 py-0.5"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
                   <Button
                     size="sm"
                     className="mt-2"
@@ -188,19 +148,7 @@ export default function Home() {
       <footer className="mt-10 border-t bg-white">
         <div className="max-w-7xl mx-auto px-4 py-6 text-sm text-gray-600 flex flex-col sm:flex-row gap-2 items-center justify-between">
           <div>{settings.footerText}</div>
-          <div className="flex items-center gap-3">
-            <a className="hover:underline" href="#">
-              سياسة الخصوصية
-            </a>
-            <a className="hover:underline" href="#">
-              شروط الاستخدام
-            </a>
-            <a className="hover:underline" href="#">
-              تواصل
-            </a>
-          </div>
         </div>
-
         {settings.footerImage && (
           <div className="w-full mt-4">
             <img

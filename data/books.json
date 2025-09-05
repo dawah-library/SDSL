@@ -38,15 +38,13 @@
     ],
     "addedAt": "2025-09-03T10:00:00Z"
   },
-  {
-    "id": "b5",
-    "title": "الإعلام بحرمة أهل العلم والإسلام",
-    "author": "محمد إسماعيل المقدم",
-    "topics": [
-      "الآداب",
-      "العقيدة"
-    ],
-    "addedAt": "2025-09-04T12:00:00Z",
-    "contentFile": "/books/el3lam.json"
-  }
+{
+  "id": "b5",
+  "title": "الإعلام بحرمة أهل العلم والإسلام",
+  "author": "محمد بن أحمد بن إسماعيل المقدم",
+  "contentFile": "/books/el3lam.json",
+  "pdfUrl": "https://archive.org/details/el3lam",
+  "topics": ["الآداب", "التزكية والرقائق"],
+  "addedAt": "2025-09-04T10:00:00Z"
+}
 ]
